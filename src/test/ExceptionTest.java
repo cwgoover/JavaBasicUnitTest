@@ -21,6 +21,10 @@ public class ExceptionTest {
 
     public static void main(String[] args) {
         ExceptionTest test = new ExceptionTest();
+
+        test.testReturnInTry();
+        System.out.println("*********************************");
+
         try {
 //            test.testAfterException("aa");
 //            test.testCatchExceptionRunStep(5);  // 抛异常
@@ -44,6 +48,19 @@ public class ExceptionTest {
                 System.out.println("catch StackOverflowError!~");
             }
 
+        }
+    }
+
+    // FIXME: 即使try语句块里有return语句，finally语句块还是会执行！
+    private void testReturnInTry() {
+        try {
+            System.out.println("run try method");
+//            testAfterException("");
+            return;
+        } catch (NullPointerException ex) {
+            System.out.println("catch NullPointerException!~");
+        } finally {
+            System.out.println("run finally");
         }
     }
 
@@ -86,10 +103,6 @@ public class ExceptionTest {
 
     private void throwStackOverflowError() {
         throw new StackOverflowError("Simulate StackOverflowError");
-    }
-
-    private void testGenerics() {
-        // TODO:
     }
 
     // FIXME: <?> 提供了只读的功能，也就是它删减了增加具体类型元素的能力
